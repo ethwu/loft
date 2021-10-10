@@ -9,6 +9,10 @@ This release excludes HTTPS support in order to build the Windows binary.
 - [User Manual](docs/MANUAL.md)
 - [Build Instructions](docs/BUILD.md)
 - [Design](docs/DESIGN.md)
+- [Final Presentation](https://www.youtube.com/watch?v=KQOjnhDYqo8)
+
+## Releases ##
+Head over to [releases](https://github.com/ucsb-cs148-s21/t7-local-network-file-transfer/releases) for a prepackaged executable.
 
 ## Repository Structure ##
 - `loft/` Source files and assets.
