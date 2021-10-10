@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "loft"
+version = "1.0.0"
+description = "Transfer files locally, with Loft!"
+authors = [
+    "Andrew Tran <andrew_tran@cs.ucsb.edu>",
+    "Ethan Wu <ethanwu@cs.ucsb.edu>",
+    "Kevin Pham <k_pham@engineering.ucsb.edu>",
+    "Douglas Yuan <douglasyuan@engineering.ucsb.edu>",
+    "Zachary Mondin <zmondin@cs.ucsb.edu>",
+]
+license = "LGPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cryptography = "^35.0.0"
+Flask = "^2.0.2"
+Flask-HTTPAuth = "^4.4.0"
+netifaces = "^0.11.0"
+pyinstaller = "^4.5.1"
+PyQt5 = "^5.15.4"
+qrcode = "^7.3.1"
+Werkzeug = "^2.0.2"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.7"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
