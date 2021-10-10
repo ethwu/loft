@@ -1,32 +1,22 @@
-altgraph==0.17
-atomicwrites==1.4.0
-attrs==21.2.0
-autopep8==1.5.7
-click==8.0.1
-colorama==0.4.4
-Flask==2.0.1
-Flask-HTTPAuth==4.4.0
-future==0.18.2
-iniconfig==1.1.1
-itsdangerous==2.0.1
-Jinja2==3.0.1
-MarkupSafe==2.0.1
+altgraph==0.17.2; sys_platform == "darwin" and python_version >= "3.6"
+cffi==1.14.6; python_version >= "3.6"
+click==8.0.2; python_version >= "3.6"
+colorama==0.4.4; python_version >= "3.6" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.6" and python_full_version >= "3.5.0"
+flask==2.0.2; python_version >= "3.6"
+future==0.18.2; sys_platform == "win32" and python_version >= "3.6" and python_full_version >= "3.6.0"
+itsdangerous==2.0.1; python_version >= "3.6"
+jinja2==3.0.2; python_version >= "3.6"
+macholib==1.15.2; sys_platform == "darwin" and python_version >= "3.6"
+markupsafe==2.0.1; python_version >= "3.6"
 netifaces==0.11.0
-packaging==20.9
-pefile==2021.5.13
-pluggy==0.13.1
-py==1.10.0
-pycodestyle==2.7.0
-pyinstaller==4.3
-pyinstaller-hooks-contrib==2021.1
-pyparsing==2.4.7
-PyQt5==5.15.4
-PyQt5-Qt5==5.15.2
-PyQt5-sip==12.9.0
-pytest==6.2.4
-pywin32-ctypes==0.2.0
-qrcode==6.1
-six==1.16.0
-toml==0.10.2
-Werkzeug==2.0.1
-zipp==3.4.1
+pefile==2021.9.3; sys_platform == "win32" and python_version >= "3.6" and python_full_version >= "3.6.0"
+pycparser==2.20; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
+pyinstaller-hooks-contrib==2021.3; python_version >= "3.6"
+pyinstaller==4.5.1; python_version >= "3.6"
+pyotp==2.6.0
+pyqt5-qt5==5.15.2; python_version >= "3.6"
+pyqt5-sip==12.9.0; python_version >= "3.6"
+pyqt5==5.15.4; python_version >= "3.6"
+pywin32-ctypes==0.2.0; sys_platform == "win32" and python_version >= "3.6"
+qrcode==7.3.1; python_version >= "3.6"
+werkzeug==2.0.2; python_version >= "3.6"

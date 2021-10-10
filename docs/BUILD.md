@@ -1,7 +1,7 @@
 # Building Your Loft #
 Do you want to build your own Loft? Get started here!
 
-> Is building your own Loft too difficult? Then head over [here](https://github.com/ucsb-cs148-s21/t7-local-network-file-transfer/releases) to get a prefabricated Loft.
+> Is building your own Loft too difficult? Then head over [here](https://github.com/ethwu/loft/releases) to get a prefabricated Loft.
 
 #### Important ####
 - Unfortunately, building on macOS does not work.
@@ -20,9 +20,10 @@ Building your Loft can be challenging if you’ve never built one before, but it
 Loft depends on:
 - `cryptography`
 - `Flask`
-- `Flask-HTTPAuth`
+<!-- - `Flask-HTTPAuth` -->
 - `netifaces`
 - `pyinstaller`
+- `PyOTP`
 - `PyQt5`
 - `qrcode`
 - `Werkzeug`
@@ -35,20 +36,22 @@ For development, your Loft will need:
 - `autopep8`
 - `pytest`
 
+This fork of Loft uses `poetry` in order to manage dependencies.
+
 ## Putting it All Together ##
 
 1. Either unzip the zipped repository or clone the repository with Git. You can put them anywhere, but we’ll assume you put them on your desktop (`~/Desktop` on Linux and macOS, `C:\Users\<username>\Desktop` on Windows). If you put the repository somewhere else, change the file paths as necessary. If using Git:
     ```shell
     $ # on Linux or macOS
     $ cd ~/Desktop
-    $ git clone 'https://github.com/ucsb-cs148-s21/t7-local-network-file-transfer.git'
-    $ cd t7-local-network-file-transfer
+    $ git clone 'https://github.com/ethwu/loft.git'
+    $ cd loft
     ```
 
     ```powershell
     > # in Windows PowerShell
-    > git clone 'https://github.com/ucsb-cs148-s21/t7-local-network-file-transfer.git'
-    > Set-Location t7-local-network-file-transfer
+    > git clone 'https://github.com/ethwu/loft.git'
+    > Set-Location loft
     ```
 2. Set up and activate a Python virtual environment.
     ```shell
@@ -80,10 +83,10 @@ For development, your Loft will need:
 On Windows and Linux, your new Loft will now be inside the `dist/` directory. For Mac, Loft will be located in `build/` instead. Feel free to set it up somewhere convenient, like `~/Applications` on Mac! You can now delete the Loft repository.
 ```shell
 $ cd ~/Desktop
-$ rm -rf t7-local-network-file-transfer
+$ rm -rf loft
 ```
 
 ```powershell
 > Set-Location $home\Desktop
-> Remove-Item -Recurse 't7-local-network-file-transfer'
+> Remove-Item -Recurse 'loft'
 ```

@@ -1,6 +1,4 @@
 
-import os
-
 from loft.config import Config
 from loft.ui import Gui
 

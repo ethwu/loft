@@ -12,7 +12,7 @@ This release excludes HTTPS support in order to build the Windows binary.
 - [Final Presentation](https://www.youtube.com/watch?v=KQOjnhDYqo8)
 
 ## Releases ##
-Head over to [releases](https://github.com/ucsb-cs148-s21/t7-local-network-file-transfer/releases) for a prepackaged executable.
+Head over to [releases](https://github.com/ethwu/loft/releases) for a prepackaged executable.
 
 ## Repository Structure ##
 - `loft/` Source files and assets.
