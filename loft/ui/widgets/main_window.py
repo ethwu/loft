@@ -35,26 +35,26 @@ class MainWindow(QWidget):
     def setup(self):
         self.qr_code = QrCodeContainer(get_ip(), self.gui.server.config.PORT)
 
-        Config.PASSWORD["password"] = str(generate_random())
+        # Config.PASSWORD["password"] = str(generate_random())
 
-        username = QLineEdit("loft")
-        username.setReadOnly(True)
-        password = QLineEdit(Config.PASSWORD['password'])
-        password.setReadOnly(True)
-        password.setEchoMode(QLineEdit.Password)
+        # username = QLineEdit("loft")
+        # username.setReadOnly(True)
+        # password = QLineEdit(Config.PASSWORD['password'])
+        # password.setReadOnly(True)
+        # password.setEchoMode(QLineEdit.Password)
 
-        password_show_button = QPushButton(text='Show Password')
-        password_show_button.setCheckable(True)
+        # password_show_button = QPushButton(text='Show Password')
+        # password_show_button.setCheckable(True)
 
-        def password_visibility():
-            if (password_show_button.isChecked()):
-                password.setEchoMode(QLineEdit.Normal)
-                password_show_button.setText("Hide Password")
-            else:
-                password.setEchoMode(QLineEdit.Password)
-                password_show_button.setText("Show Password")
+        # def password_visibility():
+        #     if (password_show_button.isChecked()):
+        #         password.setEchoMode(QLineEdit.Normal)
+        #         password_show_button.setText("Hide Password")
+        #     else:
+        #         password.setEchoMode(QLineEdit.Password)
+        #         password_show_button.setText("Show Password")
 
-        password_show_button.clicked.connect(password_visibility)
+        # password_show_button.clicked.connect(password_visibility)
 
         start_button = QPushButton(text='Start Connection')
         start_button.setCheckable(True)
@@ -84,8 +84,8 @@ class MainWindow(QWidget):
         file_list: QGroupBox = build_file_list()
 
         toggle_https = QPushButton(text='Toggle HTTPS')
-        # toggle_https.setCheckable(True)
-        toggle_https.setDisabled(True)
+        toggle_https.setCheckable(True)
+        # toggle_https.setDisabled(True)
 
         def toggle_https_callback():
             '''Toggle HTTPS on the server configuration.'''
@@ -96,7 +96,7 @@ class MainWindow(QWidget):
         toggle_https.toggled.connect(toggle_https_callback)
 
         full_instr = QLabel(
-            '<a href=https://github.com/ucsb-cs148-s21/t7-local-network-file-transfer/blob/main/docs/MANUAL.md>Full Instructions</a>')
+            '<a href="https://github.com/ethwu/loft/blob/ceb7c9f9330da8874095fff4cb3fd975e9c63809/docs/MANUAL.md">Help</a>')
         full_instr.setTextInteractionFlags(
             Qt.TextInteractionFlag.LinksAccessibleByMouse)
         full_instr.setOpenExternalLinks(True)
@@ -107,11 +107,11 @@ class MainWindow(QWidget):
         security_grid = QGridLayout()
         security_box.setLayout(security_grid)
 
-        security_grid.addWidget(QLabel("User Name:"), 0, 0, 1, 1)
-        security_grid.addWidget(username, 0, 1, 1, 1)
-        security_grid.addWidget(QLabel("Password:"), 1, 0, 1, 1)
-        security_grid.addWidget(password, 1, 1, 1, 1)
-        security_grid.addWidget(password_show_button, 2, 0, 1, 2)
+        # security_grid.addWidget(QLabel("User Name:"), 0, 0, 1, 1)
+        # security_grid.addWidget(username, 0, 1, 1, 1)
+        # security_grid.addWidget(QLabel("Password:"), 1, 0, 1, 1)
+        # security_grid.addWidget(password, 1, 1, 1, 1)
+        # security_grid.addWidget(password_show_button, 2, 0, 1, 2)
         security_grid.addWidget(toggle_https, 3, 0, 1, 2)
 
         self.layout.addWidget(security_box, 1, 0)

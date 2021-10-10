@@ -7,21 +7,22 @@ from loft.config import Config
 def landing():
     landing = Blueprint('landing', __name__)
 
-    auth = HTTPBasicAuth()
+    # auth = HTTPBasicAuth()
 
-    users = {
-        "loft": generate_password_hash(Config.PASSWORD["password"])
-    }
+    # users = {
+    #     "loft": generate_password_hash(Config.PASSWORD["password"])
+    # }
 
-    @auth.verify_password
-    def verify_password(username, password):
-        if username in users and \
-            check_password_hash(users.get(username), password):
-            return username
+    # @auth.verify_password
+    # def verify_password(username, password):
+    #     if username in users and \
+    #         check_password_hash(users.get(username), password):
+    #         return username
 
     @landing.route('/')
-    @auth.login_required
+    # @auth.login_required
     def index():
         return render_template('pages/index.html')
 
     return landing
+

@@ -33,7 +33,10 @@ class QrCodeContainer(QGridLayout):
         self.image = QLabel()
         self.image.setPixmap(qr_image)
 
-        self.link = QLabel(text=f'<font color=#0000ee>{address}</font>')
+        # # unclickable
+        # self.link = QLabel(text=f'<font color=#0000ee>{address}</font>')
+        # clickable
+        self.link = QLabel(f'<a href="{address}">{address}</a>')
 
         self.addWidget(self.image, 0, 0, Qt.AlignCenter)
         self.addWidget(self.link, 1, 0, Qt.AlignCenter)
