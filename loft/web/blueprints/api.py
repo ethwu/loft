@@ -18,18 +18,20 @@ import os
 from pathlib import Path
 
 from flask import abort, Blueprint, current_app, flash, jsonify, request, send_from_directory
+import pyotp
 
 from loft.util.file import save
 from loft.util.id_map import IdMap
 
 
-def api(available: IdMap[Path]):
+def api(available: IdMap[Path], verifier: pyotp.OTP):
     '''Handles upload and download requests.'''
     api = Blueprint('api', __name__)
 
     @api.route('/api/files', methods=['POST'])
     def receive():
         '''Receive a file via a POST request.'''
+        validate()
 
         if not request.files:
             flash('No file was selected.', 'error')
@@ -44,6 +46,8 @@ def api(available: IdMap[Path]):
     @api.route('/api/files/<int:file_id>', methods=['GET'])
     def send(file_id: int):
         '''Send a requested file in response to a GET request.'''
+        validate()
+
         if not available.contains(file_id):
             abort(404, description='Invalid file ID {}.'.format(file_id))
 
@@ -60,6 +64,13 @@ def api(available: IdMap[Path]):
     @api.route('/api/files', methods=['GET'])
     def inspect():
         '''Inspect what files are currently available.'''
+        validate()
+
         return jsonify(available=[(k, v.name) for k, v in available.items()])
+
+    def validate():
+        '''Validate the authenticity of the request.'''
+        if not verifier.verify(request.args.get('pwd'), request.date):
+            abort(403, description='Could not verify request.')
 
     return api

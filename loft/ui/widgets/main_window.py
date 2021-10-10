@@ -2,15 +2,11 @@
 from pathlib import Path
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QGridLayout, QGroupBox, QLabel, QLineEdit, QPushButton, QTextEdit, QWidget
-
+from PyQt5.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QPushButton, QWidget
 
 from loft.ui.widgets.qr_code import QrCodeContainer
 from loft.util.id_map import IdMap
 from loft.util.net import get_ip_thru_gateway as get_ip
-from loft.util.rand_pass import generate_random
-
-from loft.config import Config
 
 
 class MainWindow(QWidget):
@@ -30,10 +26,17 @@ class MainWindow(QWidget):
 
         self.layout = QGridLayout(self)
 
+        self.clipboard = QApplication.clipboard()
+
         self.setup()
 
     def setup(self):
-        self.qr_code = QrCodeContainer(get_ip(), self.gui.server.config.PORT)
+        self.qr_code = QrCodeContainer(
+            get_ip(),
+            self.gui.server.config.PORT,
+            self.gui.server.config.SECRET_KEY,
+            'http',
+        )
 
         # Config.PASSWORD["password"] = str(generate_random())
 
@@ -66,7 +69,7 @@ class MainWindow(QWidget):
             '''
             self.gui.server.init()
             start_button.setDisabled(True)
-            toggle_https.setDisabled(True)
+            # toggle_https.setDisabled(True)
             self.gui.server.run()
 
         start_button.toggled.connect(start_connection_callback)
@@ -83,17 +86,17 @@ class MainWindow(QWidget):
 
         file_list: QGroupBox = build_file_list()
 
-        toggle_https = QPushButton(text='Toggle HTTPS')
-        toggle_https.setCheckable(True)
+        # toggle_https = QPushButton(text='Toggle HTTPS')
+        # toggle_https.setCheckable(True)
         # toggle_https.setDisabled(True)
 
-        def toggle_https_callback():
-            '''Toggle HTTPS on the server configuration.'''
-            self.gui.server.config.https = not self.gui.server.config.https
-            self.qr_code.set_protocol(
-                'https' if self.gui.server.config.https else 'http')
+        # def toggle_https_callback():
+        #     '''Toggle HTTPS on the server configuration.'''
+        #     self.gui.server.config.https = not self.gui.server.config.https
+        #     self.qr_code.set_protocol(
+        #         'https' if self.gui.server.config.https else 'http')
 
-        toggle_https.toggled.connect(toggle_https_callback)
+        # toggle_https.toggled.connect(toggle_https_callback)
 
         full_instr = QLabel(
             '<a href="https://github.com/ethwu/loft/blob/ceb7c9f9330da8874095fff4cb3fd975e9c63809/docs/MANUAL.md">Help</a>')
@@ -101,7 +104,7 @@ class MainWindow(QWidget):
             Qt.TextInteractionFlag.LinksAccessibleByMouse)
         full_instr.setOpenExternalLinks(True)
 
-        self.layout.addLayout(self.qr_code, 0, 0, 1, 4)
+        self.layout.addLayout(self.qr_code, 0, 0, 1, 2)
 
         security_box = QGroupBox("Security")
         security_grid = QGridLayout()
@@ -112,7 +115,11 @@ class MainWindow(QWidget):
         # security_grid.addWidget(QLabel("Password:"), 1, 0, 1, 1)
         # security_grid.addWidget(password, 1, 1, 1, 1)
         # security_grid.addWidget(password_show_button, 2, 0, 1, 2)
-        security_grid.addWidget(toggle_https, 3, 0, 1, 2)
+        # security_grid.addWidget(toggle_https, 3, 0, 1, 2)
+        copy_url = QPushButton(text='Copy URL to Clipboard')
+        copy_url.clicked.connect(
+            lambda: self.clipboard.setText(self.qr_code.address))
+        security_grid.addWidget(copy_url, 0, 0, 1, 1)
 
         self.layout.addWidget(security_box, 1, 0)
 

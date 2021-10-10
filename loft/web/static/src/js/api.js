@@ -3,6 +3,18 @@
     'use strict';
 
     /**
+     * Utility function for getting the loft API url.
+     * @returns {URL} the url of the loft API
+     */
+    function apiUrl() {
+        // location.host contains the port
+        const base = `${global.location.protocol}//${location.host}`;
+        const url = new URL('/api/files', base);
+        url.search = new URLSearchParams({ pwd: loft.pwd() });
+        return url;
+    }
+
+    /**
      * Callback for handling request failures.
      * @callback ResponseFailureCallback
      * @param {number} code - response status code
@@ -20,7 +32,7 @@
      */
     async function send(data, onfail = responseFailureNoOp) {
         /** @type {Response} */
-        const response = await fetch('/api/files', { method: 'POST', body: data });
+        const response = await fetch(apiUrl(), { method: 'POST', body: data });
         if (response.status !== 200) {
             onfail(response.status, response.statusText);
             return false;
@@ -38,7 +50,7 @@
             // Generate an anchor element with the `download` attribute and use that to
             // send the GET request to the api.
             const a = document.createElement('a');
-            a.href = '/api/files/' + id;
+            a.href = '/api/files/' + id + '?pwd=' + loft.pwd();
             a.download = true;
 
             a.click();
@@ -53,7 +65,7 @@
      */
     async function list(onfail = responseFailureNoOp) {
         /** @type {Response} */
-        const response = await fetch('/api/files', { method: 'GET' });
+        const response = await fetch(apiUrl(), { method: 'GET' });
         if (response.status != 200) {
             onfail(response.status, response.statusText)
             return null;
@@ -64,6 +76,7 @@
 
     if (global.loft === undefined) global.loft = {};
     Object.assign(global.loft, {
+        apiUrl,
         send,
         receive,
         list,

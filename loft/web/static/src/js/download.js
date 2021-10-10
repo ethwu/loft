@@ -50,7 +50,7 @@
                 }
             }
         }).catch(err => {
-            if (err instanceof NetworkError) {
+            if (err.name === 'NetworkError') {
                 // TODO: disable the UI when the other side isn't present
             }
         });

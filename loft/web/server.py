@@ -5,6 +5,7 @@ import typing
 
 from flask import Flask, render_template
 from werkzeug.serving import run_simple  # , make_ssl_devcert
+from pyotp import random_base32, TOTP
 
 from loft.config import Config
 from loft.util.file import open_  # , get_data
@@ -33,6 +34,9 @@ class Server:
 
         # A dictionary of the available files for download.
         self.available: IdMap[Path] = IdMap()
+
+        # OTP verifier used for checking the authenticity of requests.
+        self.verifier = TOTP(config.SECRET_KEY)
 
     def init(self):
         '''Initialize the server.'''
@@ -78,7 +82,7 @@ class Server:
         from .blueprints import api, landing
 
         self.flask.register_blueprint(landing())
-        self.flask.register_blueprint(api(self.available))
+        self.flask.register_blueprint(api(self.available, self.verifier))
 
     # def generate_certificates(self) -> typing.Tuple[str, str]:
     #     '''Generate SSL certificates if they do not already exist.'''

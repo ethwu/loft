@@ -2,6 +2,8 @@
 from pathlib import Path
 import shutil
 
+import pyotp
+
 from loft.util.file import get_downloads, get_documents
 
 
@@ -26,7 +28,7 @@ class Config:
     HOST: str = '0.0.0.0'
     PORT: int = 2402
 
-    SECRET_KEY: str = 'bf7fe7847aa5f10778de0340d4b7cb5163d2727f95801ba0'
+    SECRET_KEY: str = pyotp.random_base32()
 
     # Loft Configuration
     APP_NAME: str = 'loft'

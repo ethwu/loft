@@ -8,38 +8,41 @@ import qrcode
 class QrCodeContainer(QGridLayout):
     '''Display container for the generated QR code and link.'''
 
-    def __init__(self, host: str, port: int, protocol: str = 'http'):
+    def __init__(self, host: str, port: int, secret_key: str, protocol: str):
         QGridLayout.__init__(self)
         self.protocol = protocol
         self.host = host
         self.port = port
 
         self.image = None
-        self.link = None
+        self.address = None
+        # self.link = None
 
+        self.secret_key = secret_key
         self.set_protocol(protocol)
 
     def set_protocol(self, protocol: str = 'http'):
         '''Change the protocol and update the QR code accordingly.'''
         if self.image:
             self.removeWidget(self.image)
-        if self.link:
-            self.removeWidget(self.link)
+        # if self.link:
+        #     self.removeWidget(self.link)\
 
-        address = f'{protocol}://{self.host}:{self.port}'
+        self.protocol = protocol
+        self.address = f'{self.protocol}://{self.host}:{self.port}/?secret={self.secret_key}'
         qr_image: QPixmap = qrcode.make(
-            address, image_factory=QrCodeImage).pixmap()
+            self.address, image_factory=QrCodeImage).pixmap().scaledToWidth(312.5)
 
         self.image = QLabel()
         self.image.setPixmap(qr_image)
 
         # # unclickable
         # self.link = QLabel(text=f'<font color=#0000ee>{address}</font>')
-        # clickable
-        self.link = QLabel(f'<a href="{address}">{address}</a>')
+        # # clickable
+        # self.link = QLabel(f'<a href="{address}">{address}</a>')
 
         self.addWidget(self.image, 0, 0, Qt.AlignCenter)
-        self.addWidget(self.link, 1, 0, Qt.AlignCenter)
+        # self.addWidget(self.link, 1, 0, Qt.AlignCenter)
 
 
 class QrCodeImage(qrcode.image.base.BaseImage):
